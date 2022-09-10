@@ -1,0 +1,50 @@
+<?php
+	session_start();
+	require_once"process/dbh.php";
+	$employeeName=$_SESSION['name'];
+	$sql="select name,employeeID from employees where name='$employeeName'";
+	$result=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($result))
+	{
+		$ename=$row['name'];
+		$eid=$row['employeeID'];
+	}
+	if(isset($_POST['leave'])){
+		$error=array();
+	
+		
+		
+		
+
+	if(isset($_POST['Reason'])&& !empty($_POST['Reason'])&& trim($_POST['Reason'])!=''){
+
+			$leavedescr=$_POST['Reason'];
+			}
+		else{
+			$error['Reason']="enter Reason!<br>";
+		}
+
+		if(isset($_POST['startdate'])&& !empty($_POST['startdate'])&& ($_POST['startdate'])!=''){
+
+			$startdate=$_POST['startdate'];
+			}
+		else{
+			$error['startdate']="enter startdate!<br>";
+		}
+
+		if(isset($_POST['enddate'])&& !empty($_POST['enddate'])&& trim($_POST['enddate'])!=''){
+         $sdate=new Datetime($startdate);
+		 $edate= new Datetime($_POST(['enddate']);
+		 if ($sdate>$edate){
+			$error['enddate']=" Enddate can not be before start date!<br>";
+		 }
+else{
+	$enddate=$_POST['enddate'];
+}
+		 
+		 else{
+			$error['enddate']="enter enddate!<br>";
+		}
+	}
+
+		
